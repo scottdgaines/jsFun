@@ -42,3 +42,22 @@ Now, whenever instructors tell you to pull down changes, there are two steps:
 
 Check out [this video](https://vimeo.com/turing/review/388550182/34823726eb) if you need help pulling down new changes!
 
+
+## Tests in Order of Difficulyt (Easy to Hard)
+[] Kitties & Puppers
+
+[] Breweries
+
+[] Mods
+
+[] Weather
+
+[] Classrooms
+
+[] National Parks
+
+[] Cakes
+
+[] Books
+
+[] Clubs
