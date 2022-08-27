@@ -18,20 +18,15 @@ const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 
 // DATASET: kitties from ./datasets/kitties
 const kittyPrompts = {
+
+  // Return an array of just the names of kitties who are orange e.g.
+    // ['Tiger', 'Snickers']
   orangePetNames() {
-    // Return an array of just the names of kitties who are orange e.g.
-        // ['Tiger', 'Snickers']
-
-
-  const orangePets = kitties.filter(kitten => {
+    return kitties.filter(kitten => {
       return kitten.color === 'orange'
+    }).map((kitten) => {
+      return kitten.name
     })
-  
-  const orangePetNames = orangePets.map(kitten => {
-    return kitten.name
-  })
-  
-  return orangePetNames
 
     // Annotation:
     // This problem had two steps to it: because we had to return multiple elements containing a specific property, 
@@ -43,14 +38,12 @@ const kittyPrompts = {
     //from the original array of orange pets.
   },
 
+  // Sort the kitties by their age
   sortByAge() {
-    // Sort the kitties by their age
-
-    const sortedAges = kitties.sort((kitten2, kitten1) => {
+    const sortedKittens = kitties.sort((kitten2, kitten1) => {
       return kitten1.age - kitten2.age
-     });
-
-     return sortedAges
+    });
+    return sortedKittens
      
     // Annotation:
     // we will be modifying the OG array with sort(), arranging the elements in descending orde
@@ -61,8 +54,7 @@ const kittyPrompts = {
     //descend.
   },
 
-  growUp() {
-    // Return an array of kitties who have all grown up by 2 years e.g.
+     // Return an array of kitties who have all grown up by 2 years e.g.
     // [{
     //   name: 'Felicia',
     //   age: 4,
@@ -74,10 +66,8 @@ const kittyPrompts = {
     //   color: 'orange'
     // },
     // ...etc]
-
-
-    const growUp = (petsArray) => {
-      const grownUpPet = petsArray.map(pet => {
+  growUp(petsArray) {
+   const grownUpPet = petsArray.map(pet => {
       pet.age = pet.age + 2   
       return pet
     })
