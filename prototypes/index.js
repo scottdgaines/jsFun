@@ -53,7 +53,12 @@ const kittyPrompts = {
      return sortedAges
      
     // Annotation:
-    // Write your annotation here as a comment
+    // we will be modifying the OG array with sort(), arranging the elements in descending orde
+    //based on their age. I listed the parameters as kitten2 and kitten1 to demonstrate which element the 
+    //method is using (the first parameter, though usually listed as 'a' is actually the second element
+    //in the array, so to visually demonstrate that I listed it as kitten2). Returning kitten2.age-kitten1.age
+    //would arrange the elements in ascending order based on age, so we reversed the order so they would
+    //descend.
   },
 
   growUp() {
@@ -70,14 +75,26 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const cats = kitties.map(kitten => {
-      kitten.age = kitten.age + 2   
-      return kitten
+
+    const growUp = (petsArray) => {
+      const grownUpPet = petsArray.map(pet => {
+      pet.age = pet.age + 2   
+      return pet
     })
+    return grownUpPet
+  }
     
-    return cats
+    return growUp(kitties);
   }
 };
+
+//ANNOTATION:
+//the OG array is already sorted according to age, so all we had to do was return another
+//array of kitties/pets who have grown up by two years. Since we're returning a new array
+//that is of the same length, I know we needed to use map(). To access the specific properties
+//we need to mutate, we used the arrayName.propertyName + 2 to increase it by two. Since we 
+//needed to return the whole pet object to the array instead of only their increased age property
+//we returned 'pet'
 
 // PLEASE READ-----------------------
 // Currently, your functions are probably using the `kitties` global import variable.
@@ -91,10 +108,6 @@ const kittyPrompts = {
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-
-
-
 
 
 // DATASET: clubs from ./datasets/clubs
