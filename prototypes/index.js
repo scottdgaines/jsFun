@@ -21,11 +21,11 @@ const kittyPrompts = {
 
   // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
-  orangePetNames() {
-    return kitties.filter(kitten => {
-      return kitten.color === 'orange'
-    }).map((kitten) => {
-      return kitten.name
+  orangePetNames(pets) {
+    return pets.filter(pet => {
+      return pet.color === 'orange'
+    }).map((pet) => {
+      return pet.name
     })
 
     // Annotation:
@@ -39,11 +39,11 @@ const kittyPrompts = {
   },
 
   // Sort the kitties by their age
-  sortByAge() {
-    const sortedKittens = kitties.sort((kitten2, kitten1) => {
-      return kitten1.age - kitten2.age
+  sortByAge(pets) {
+    const sortedPets = pets.sort((pet2, pet1) => {
+      return pet1.age - pet2.age
     });
-    return sortedKittens
+    return sortedPets
      
     // Annotation:
     // we will be modifying the OG array with sort(), arranging the elements in descending orde
@@ -66,15 +66,12 @@ const kittyPrompts = {
     //   color: 'orange'
     // },
     // ...etc]
-  growUp(petsArray) {
-   const grownUpPet = petsArray.map(pet => {
+  growUp(pets) {
+   const grownUpPet = pets.map(pet => {
       pet.age = pet.age + 2   
       return pet
     })
     return grownUpPet
-  }
-    
-    return growUp(kitties);
   }
 };
 
