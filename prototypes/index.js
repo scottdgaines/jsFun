@@ -22,17 +22,36 @@ const kittyPrompts = {
     // Return an array of just the names of kitties who are orange e.g.
         // ['Tiger', 'Snickers']
 
-        /* CODE GOES HERE */
+
+  const orangePets = kitties.filter(kitten => {
+      return kitten.color === 'orange'
+    })
+  
+  const orangePetNames = orangePets.map(kitten => {
+    return kitten.name
+  })
+  
+  return orangePetNames
 
     // Annotation:
-    // Write your annotation here as a comment
+    // This problem had two steps to it: because we had to return multiple elements containing a specific property, 
+    //we couldn't use .find() which would only return the first element containing the specific property, but instead used
+    //.filter() which would return all an array of elements with that property.
+    //once we had that array of objects, we needed to iterate over that new array to return only the name property. I initially
+    //use a forEach() to push into another array, but refactored it with .map() which returns another array of the same length as the
+    //initial array automatically (instead of having to create a new one). .map() returned a new array of only the name property
+    //from the original array of orange pets.
   },
 
   sortByAge() {
     // Sort the kitties by their age
 
-    /* CODE GOES HERE */
+    const sortedAges = kitties.sort((kitten2, kitten1) => {
+      return kitten1.age - kitten2.age
+     });
 
+     return sortedAges
+     
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -51,7 +70,12 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    /* CODE GOES HERE */
+    const cats = kitties.map(kitten => {
+      kitten.age = kitten.age + 2   
+      return kitten
+    })
+    
+    return cats
   }
 };
 
