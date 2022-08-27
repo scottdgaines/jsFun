@@ -477,14 +477,26 @@ const nationalParksPrompts = {
 
 // DATASET: breweries from ./datasets/breweries
 const breweryPrompts = {
-  getBeerCount() {
-    // Return the total beer count of all beers for every brewery e.g.
-    // 40
-
-    /* CODE GOES HERE */
+  // Return the total beer count of all beers for every brewery e.g.
+  // 40
+ getBeerCount() {
+    const beerCount = breweries.reduce((totalBeers, brewerie) => {
+      totalBeers = totalBeers + brewerie.beers.length
+      return totalBeers
+    }, 0)
+    return beerCount
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We're using reduce() because we need to return a single
+    //value from the accumulation of the arrays. 
+    //the accumulator is totalBeers (where everything is being added to), 
+    //the currentValue is beer (the individual element / value that will be added to the acc)
+    //we have to return the accumulator (declared in the param as totalBeers)
+    // we have to assign the iterator to a const so that we can 
+    //return that const so that the getBeerCount will not return undefined
+    //the initialValue parameter has to be define here, becuase the first element in the 
+    //array we're iterating over is an object, not a number, so we have to
+    //define the value of that object as a number so the method can properly add
   },
 
   getBreweryBeerCount() {
