@@ -133,9 +133,8 @@ const clubPrompts = {
 
 
 // DATASET: mods from ./datasets/mods
-const modPrompts = {
-  studentsPerMod() {
-    // Return an array of objects where the keys are mod (the number of the module)
+
+   // Return an array of objects where the keys are mod (the number of the module)
     // and studentsPerInstructor (how many students per instructor there are for that mod) e.g.
     // [
     //   { mod: 1, studentsPerInstructor: 9 },
@@ -143,11 +142,20 @@ const modPrompts = {
     //   { mod: 3, studentsPerInstructor: 10 },
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
-
-    /* CODE GOES HERE */
+const modPrompts = {
+  studentsPerMod() {
+    const students = mods.map(function(mod) {
+      return {
+        mod: mod.mod, 
+        studentsPerInstructor: mod.students / mod.instructors}
+    })
+     return students
 
     // Annotation:
-    // Write your annotation here as a comment
+    // we're returning an array that is the same length as the OG, so that says map()
+    //we are returning an array of objects, so the return in map needs to create an object for
+    //each iteration
+    //
   }
 };
 
@@ -499,7 +507,6 @@ const breweryPrompts = {
     //define the value of that object as a number so the method can properly add
   },
 
-  getBreweryBeerCount() {
     // Return an array of objects where each object has the name of a brewery
     // and the count of the beers that brewery has e.g.
     // [
@@ -507,11 +514,34 @@ const breweryPrompts = {
     //  { name: 'Ratio Beerworks', beerCount: 5},
     // ...etc.
     // ]
+  getBreweryBeerCount() {
+      const beerCount = breweries.map(brewerie => {
+        return {
+          name: brewerie.name,
+          beerCount: brewerie.beers.length}
+      })
+      return beerCount
 
-    /* CODE GOES HERE */
+//REDUCE:
+//    const brewerieCount = breweries.reduce((totalCount, brewerie) => {
+  //       totalCount.push({
+  //         name: brewerie.name,
+  //         beerCount: brewerie.beers.length
+  //       })
+  //       return totalCount
+  //     }, [])
+  //     return brewerieCount
+  //   }
 
     // Annotation:
-    // Write your annotation here as a comment
+    // my first instinct was using map() since we were returning an array of 
+    //equal length to the OG. After working through both map() and reduce(), map
+    // seems to be the cleaner way.
+    //using reduce: since reduce returns a single value, but that value can be
+    //any data type (an array or an object both technically being single values).
+    //you create the accumulator as an array, and push and object of name and beer
+    //count into that array. We have to make sure to define the initialValue of
+    //the accumulator array though with the []
   },
 
   findHighestAbvBeer() {
@@ -519,7 +549,7 @@ const breweryPrompts = {
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
-    /* CODE GOES HERE */
+    
 
     // Annotation:
     // Write your annotation here as a comment
