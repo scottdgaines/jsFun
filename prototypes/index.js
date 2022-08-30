@@ -275,8 +275,6 @@ const cakePrompts = {
 
 
 // DATASET: classrooms from ./datasets/classrooms
-const classPrompts = {
-  feClassrooms() {
     // Create an array of just the front-end classrooms. e.g.
     // [
     //   { roomLetter: 'A', program: 'FE', capacity: 32 },
@@ -284,22 +282,28 @@ const classPrompts = {
     //   { roomLetter: 'E', program: 'FE', capacity: 22 },
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
-
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+const classPrompts = {
+  feClassrooms() {
+    const feRooms = classrooms.filter(room => {
+      return room.program.includes('FE')
+    })
+    return feRooms
   },
 
-  totalCapacities() {
-    // Create an object where the keys are 'feCapacity' and 'beCapacity',
+  //Annotation:
+  //using .filter to target all the FE rooms (instead of find() which would only 
+  //target the first instance of it) and using "includes" as part of our 
+  //implicit conditional to say return only the rooms whos program property includes
+  //the string "FE"
+
+      // Create an object where the keys are 'feCapacity' and 'beCapacity',
     // and the values are the total capacity for all classrooms in each program e.g.
     // {
     //   feCapacity: 110,
     //   beCapacity: 96
     // }
+  totalCapacities() {
 
-    /* CODE GOES HERE */
 
     // Annotation:
     // Write your annotation here as a comment
