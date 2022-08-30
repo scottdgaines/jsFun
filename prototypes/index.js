@@ -367,42 +367,62 @@ const bookPrompts = {
 // DATASET: weather from './datasets/weather
 
 const weatherPrompts = {
-  getAverageTemps() {
-    // return an array of all the average temperatures. Eg:
+      // return an array of all the average temperatures. Eg:
     // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
-
-    /* CODE GOES HERE */
+  getAverageTemps() {
+      const averageTemps = weather.map(function(temp) {
+        const average = (temp.temperature.high + temp.temperature.low) / 2
+        return average
+      })
+      return averageTemps
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Since we're returning the average temperature for each element in the weather 
+    //array, ie: an array of the same length, just modified, I decided map() was
+    //the way to go. we accessed each temperature.high, and added it to each temperature.low
+    //then divided it by two (or we could have divided it by temerature.length to keep it dynamic)
+    //to return the average
   },
-
-  findSunnySpots() {
     // Return an array of sentences of the locations that are sunny
     // and mostly sunny. Include the location and weather type. Eg:
     // [ 'Atlanta, Georgia is sunny.',
     // 'New Orleans, Louisiana is sunny.',
     // 'Raleigh, North Carolina is mostly sunny.' ]
-
-    /* CODE GOES HERE */
+  findSunnySpots() {
+    const sunnySpots = weather.filter(location => {
+      return location.type.includes('sunny')
+    }).map(sunnySpot => {
+      return `${sunnySpot.location} is ${sunnySpot.type}.`
+    })
+    return sunnySpots
 
     // Annotation:
-    // Write your annotation here as a comment
+   //because the OG array contains more than just sunny spots, we had to first
+   //user filter to return all the locations that included 'sunny'. 
+   //then we wanted to return an array of an equal length to that newly created array
+   //but modified a little, so we used map to create a new array of equal length
+   //but interpolating a string to describe each element of the array.
   },
 
-  findHighestHumidity() {
-    // Return the location with the highest humidity. Eg:
+      // Return the location with the highest humidity. Eg:
     // {
     //   location: 'Portland, Oregon',
     //   type: 'cloudy',
     //   humidity: 84,
     //   temperature: { high: 49, low: 38 }
     // }
-
-    /* CODE GOES HERE */
+  findHighestHumidity() {
+      const mostHumid = weather.sort((location2, location1) => {
+        return location1.humidity - location2.humidity
+      })
+      return mostHumid[0]
 
     // Annotation:
-    // Write your annotation here as a comment
+//because we don't know what the highest value for weather.humidity, we can't
+//use find(). Instead, sorting the OG array from highest to lowest based on
+//the value of the property humidity would automatically put the highest one
+//at index 0. So by returning index zero of that new array, we know it will
+//be the highest one
 
   }
 };
