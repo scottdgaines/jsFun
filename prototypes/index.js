@@ -296,26 +296,62 @@ const classPrompts = {
   //implicit conditional to say return only the rooms whos program property includes
   //the string "FE"
 
-      // Create an object where the keys are 'feCapacity' and 'beCapacity',
-    // and the values are the total capacity for all classrooms in each program e.g.
-    // {
-    //   feCapacity: 110,
-    //   beCapacity: 96
-    // }
+// Create an object where the keys are 'feCapacity' and 'beCapacity',
+// and the values are the total capacity for all classrooms in each program e.g.
+// {
+//   feCapacity: 110,
+//   beCapacity: 96
+// }
   totalCapacities() {
-
+    let capacities = []
+    
+    const feCapacities = classrooms.filter(classroom => {
+      return classroom.program === "FE";
+    }).reduce((capacity, classroom) => {
+      capacity += classroom.capacity;
+      return capacity
+    }, 0)
+    
+    capacities.push(feCapacities)
+    
+    const beCapacities = classrooms.filter(classroom => {
+      return classroom.program === "BE";
+    }).reduce((capacity, classroom) => {
+      capacity += classroom.capacity;
+      return capacity;
+    }, 0)
+    
+    capacities.push(beCapacities)
+    
+    const totalCapacities = capacities.reduce((object, capacity) => {
+      return object = {
+        feCapacity: capacities[0],
+        beCapacity: capacities[1]
+      }
+    }, {})
+    
+    return totalCapacities
+    
 
     // Annotation:
-    // Write your annotation here as a comment
+   //this doozy had at least 5 steps. Because we were looking to ultimately return one
+   //value (an object) with two accumulated values, I had to use reduce three times
+   //First we had to filter the OG array into FE and BE programs, then reduce each total
+   //in order to get the individual totals for both programs. We wanted to combine those two
+   //figures into a single object, which would imply reduce, so we had to push both totals
+   //into another empty array where reduce could work with them. We then used reduce
+   //to create the new object detailing both totals
   },
-
+    
+// Return the array of classrooms sorted by their capacity (least capacity to greatest)
   sortByCapacity() {
-    // Return the array of classrooms sorted by their capacity (least capacity to greatest)
-
-    /* CODE GOES HERE */
+    const sortedClassrooms = classrooms.sort((class2, class1) => {
+      return class2.capacity - class1.capacity
+    })
+    return sortedClassrooms
 
     // Annotation:
-    // Write your annotation here as a comment
+    //A basic use of sort(). 
   }
 };
 
