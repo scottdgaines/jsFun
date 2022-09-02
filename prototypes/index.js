@@ -676,11 +676,17 @@ const breweryPrompts = {
     // brewery has e.g.
     // given 'Ratio Beerworks', return 5
 
+    const brewerie = breweries.find(brewerie => {
+      return brewerie.name === breweryName
+    })
 
-    /* CODE GOES HERE */
+    return beerCount = brewerie.beers.length
 
     // Annotation:
-    // Write your annotation here as a comment
+    // because we only want to return one / the first instance of the brewerie
+    //specified in the param, we can use find() to return the object whose name
+    //matches the parameter. because that is a single object returned, we can then
+    //access .beers.length
   },
 
   findHighestAbvBeer() {
@@ -688,10 +694,22 @@ const breweryPrompts = {
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
+    const beers = breweries.map(brewerie => {
+      return brewerie.beers
+    }).flat()
     
-
+    const sortedBeers = beers.sort((beer1, beer2) => {
+      return beer2.abv - beer1.abv
+    })
+    
+    return sortedBeers[0]
+    
     // Annotation:
-    // Write your annotation here as a comment
+    // because the beers were nested inside an array inside an object inside 
+    //the mother array, and we wanted to compare them, we have to get them all
+    //into the same array. Use map() to return an array sepcifically with only 
+    //the arrays of .beers from each brewerie. Use flat() to put them all into
+    //the same pool to compare, then sort according to abv.
   }
 };
 
