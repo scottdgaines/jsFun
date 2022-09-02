@@ -495,18 +495,47 @@ const weatherPrompts = {
 // DATASET: nationalParks from ./datasets/nationalParks
 
 const nationalParksPrompts = {
-  getParkVisitList() {
-    /// Return an object containing the names of which parks I need to visit
-    // and the ones I have already visited eg:
-    // {
-    //   parksToVisit: ["Yellowstone", "Glacier", "Everglades"],
-    //   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
-    //}
 
-    /* CODE GOES HERE */
+/// Return an object containing the names of which parks I need to visit
+// and the ones I have already visited eg:
+// {
+//   parksToVisit: ["Yellowstone", "Glacier", "Everglades"],
+//   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
+//}
+  getParkVisitList() {
+    let namesOfParks = [];
+
+      const parksToVisit = nationalParks.filter(park => {
+        return park.visited === false;
+      }).map(park => {
+        return park.name
+      });
+    
+  
+      const parksVisited = nationalParks.filter(park => {
+        return park.visited === true;
+      }).map(park => {
+        return park.name
+      });
+      
+      namesOfParks.push(parksToVisit);
+      namesOfParks.push(parksVisited);
+
+      const parkVisitList = namesOfParks.reduce((object, list) => {
+        return object = { parksToVisit: namesOfParks[0], parksVisited: namesOfParks[1]}
+      });
+
+      return parkVisitList;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We first had to filter all the parks according to whether their visited status
+    //was true or false, then we had to map those results into an array of equal length
+    //but containing only the names (could I have done this with reduce as well, since an
+    //array is a single value?)
+    //we then needed to reduce those two arrays into a single value (an object), and since
+    //reduce can only work with one array at a time, I push both arrays into another, new
+    //array  which I then reduced into a new object
+    
   },
 
   getParkInEachState() {
@@ -518,8 +547,10 @@ const nationalParksPrompts = {
     // { Utah: 'Zion' },
     // { Florida: 'Everglades' } ]
 
-
-    /* CODE GOES HERE */
+    const parksInEachState = nationalParks.map(state => {
+      return {[state.location]: state.name}
+      })
+    return parksInEachState
 
     // Annotation:
     // Write your annotation here as a comment
@@ -541,10 +572,28 @@ const nationalParksPrompts = {
     //   'backpacking',
     //   'rock climbing' ]
 
-    /* CODE GOES HERE */
+    const sortedActivities = []
+    
+    const activities = nationalParks.map(park => {
+      return park.activities
+    }).flat()
+      .forEach(activity => {
+        if (!sortedActivities.includes(activity)) {
+        sortedActivities.push(activity)
+        }
+    })
+
+    return sortedActivities
 
     // Annotation:
-    // Write your annotation here as a comment
+    // FIRST: we had to be able to access only the activities. Using
+    //map we return an array containing only those activity arrays, since
+    //they didn't need to be associated with their parks anymore.
+    //next we needed to put all those activities into a single array, so
+    //we chained flat(). next, we declared a new, empty array of sortedActivities
+    //. Then we iterated over array containing all the activities and said, "
+    //for each one of these activities, if the new empty array does not include
+    //this specific activity, we're going to push it to that new array.
   }
 };
 
