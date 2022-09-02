@@ -90,7 +90,7 @@ If you'd like to keep track of your progress, feel free to use the checklist bel
 #### Single Data Sets
 - [x] kitties
 - [x] puppers
-- [ ] breweries
+- [x] breweries
 - [x] mods
 - [x] weather
 - [x] classrooms
