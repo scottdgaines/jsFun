@@ -188,10 +188,15 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    /* CODE GOES HERE */
+    return cakeStock = cakes.map(cake => {
+      return { flavor: cake.cakeFlavor, inStock: cake.inStock}
+    })
 
     // Annotation:
-    // Write your annotation here as a comment
+    //we were returning an array of objects that detailed each cake from the OG array,
+    //so an array of equal length. We wanted those objects to be a condensed version
+    //of information, so essentially returning a new object of condensed info. Hard code
+    //the property keys, then reference the cake's property to assign the value.
   },
 
   onlyInStock() {
@@ -215,20 +220,27 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    /* CODE GOES HERE */
+    return inStockCakes = cakes.filter(cake => {
+      return cake.inStock > 0
+    })
 
     // Annotation:
-    // Write your annotation here as a comment
+    // because we are returning more than just the first instance of an instock cake,
+    //we wanna use the filter() method. The conditional should look at the value of
+    //the property inStock, and if it is more than zero, return it to the new array
   },
 
   totalInventory() {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    /* CODE GOES HERE */
+    return inventory = cakes.reduce((total, cake) => {
+      return total += cake.inStock
+    }, 0)
 
     // Annotation:
-    // Write your annotation here as a comment
+    //remember to specify the initial starting value of the accumulator when
+    //working with reduce()
   },
 
   allToppings() {
@@ -236,10 +248,24 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    /* CODE GOES HERE */
+    let sortedToppings = []
+    
+    const allToppings = cakes.map(cake => {
+      return cake.toppings
+    }).flat()
+      .forEach(topping => {
+        if (!sortedToppings.includes(topping)) {
+           sortedToppings.push(topping)
+        }
+      })
+    
+      return sortedToppings
 
     // Annotation:
-    // Write your annotation here as a comment
+    // once again, trying to compare nested data items. We had to get them all on the same plane,
+    //so we used map to return an array of all the toppings arrays, then used flat() to put them
+    //all on the same plane for comparison. then we used forEach to compare them against a conditional
+    //and if they met teh conditional, we put them in a separate array of sortedToppings
   },
 
   groceryList() {
@@ -253,7 +279,7 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    /* CODE GOES HERE */
+
 
     // Annotation:
     // Write your annotation here as a comment
@@ -366,7 +392,7 @@ const classPrompts = {
 // DATASET: books from './datasets/books
 
 const bookPrompts = {
-  removeViolence() {
+  removeViolence(category) {
     // Your function should access the books data through a parameter (it is being passed as an argument in the test file)
     // return an array of all book titles that are not horror or true crime. Eg:
 
@@ -377,13 +403,24 @@ const bookPrompts = {
     //   'Catch-22', 'Treasure Island']
 
 
-    /* CODE GOES HERE */
+    
+    return filteredList = [category].flat()
+      .filter(item => {
+        return item.genre != 'Horror' && item.genre != 'True Crime'
+      })
+      .map(book => {
+        return book.title
+      });
 
     // Annotation:
-    // Write your annotation here as a comment
+    // First we had to declare a param for the argument of books that was being
+    //passed in at the invocation. we then needed to flatten it out of one level
+    //of array. We can use filter to take out everything with 'horror' and 'true crime'
+    //then use map to return a final array of just the titles of the remaining book
+
 
   },
-  getNewBooks() {
+  getNewBooks(category) {
     // return an array of objects containing all books that were
     // published in the 90's and 00's. Inlucde the title and the year Eg:
 
@@ -391,10 +428,18 @@ const bookPrompts = {
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    /* CODE GOES HERE */
+  return filteredBooks = [category].flat()
+    .filter(book => {
+     return book.published > 1990;
+      })
+    .map(book => {
+      return { title: book.title, year: book.published };
+    });
 
     // Annotation:
-    // Write your annotation here as a comment
+    //First we had to define the parameter of the argument books that was being
+    //passed in. we then needed to filter the OG array based on the date of
+    //publication. then we had to map that resulting array into a new object
   },
 
   getBooksByYear(books, year) {
@@ -407,10 +452,17 @@ const bookPrompts = {
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    /* CODE GOES HERE */
+
+    return filteredBooks = [books].flat()
+    .filter(book => {
+      return book.published > [year];
+    })
+    .map(book => {
+      return { title: book.title, year: book.published}
+      })
 
     // Annotation:
-    // Write your annotation here as a comment
+    // same code and logic as above, but utilizing the paremeters.
   }
 
 };
