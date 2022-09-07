@@ -98,6 +98,7 @@ If you'd like to keep track of your progress, feel free to use the checklist bel
 - [ ] cakes
 - [x] books
 - [ ] club
+- [x] boardGames
 ### Double Data Sets
 - [ ] turing (instructors, cohorts)
 - [ ] bosses (bosses, sidekicks)
