@@ -780,10 +780,16 @@ const boardGamePrompts = {
     // e.g. given an argument of "strategy", return
     // ["Chess", "Catan", "Checkers", "Pandemic", "Battle Ship", "Azul", "Ticket to Ride"]
 
-    /* CODE GOES HERE */
+    return sortedGames = boardGames[type].map(game => {
+      return game.name
+    })
 
     // Annotation:
-    // Write your annotation here as a comment
+    // because the data set is an object whose properties are arrays of objects,
+    //I know that I can't iterate through the boardGames object itself (because it's
+    //an object). I have to use the parameter 'type' to target which
+    //property of the object to iterate through, then return an array of equal length
+    //with map
   },
 
   listGamesAlphabetically(type) {
@@ -792,10 +798,15 @@ const boardGamePrompts = {
     // e.g. given an argument of "childrens", return
     // ["Candy Land", "Connect Four", "Operation", "Trouble"]
 
-    /* CODE GOES HERE */
+    return sortedGames = boardGames[type].map(game => {
+      return game.name;
+    }).sort()
+    
+
 
     // Annotation:
-    // Write your annotation here as a comment
+    // beginning with the same logic as the last problem set. If we don't incldue
+    //a compare function in sort, it will sort strings alphabetically by default
   },
 
   findHighestRatedGamesByType(type) {
@@ -803,10 +814,16 @@ const boardGamePrompts = {
     // e.g. given the argument of 'party', return
     // { name: 'Codenames', rating: 7.4, maxPlayers: 8 },
 
-    /* CODE GOES HERE */
+    const highestRatedGames = boardGames[type].sort((game1, game2) => {
+      return game2.rating - game1.rating
+    })
+
+    return highestRatedGames[0]
 
     // Annotation:
-    // Write your annotation here as a comment
+    // we have to return the whole object so we don't want to map the array first,
+    //but instead start with sort(), sort the games of the given array by value
+    //then return index zero
   },
 
   averageScoreByType(type) {
@@ -814,10 +831,24 @@ const boardGamePrompts = {
     // e.g. given the argument of "strategy", return 7
     // note: do not worry about rounding your result.
 
-    /* CODE GOES HERE */
+    const ratings = boardGames[type].map(game => {
+      return game.rating
+    })
+
+    const accumulatedRating = ratings.reduce((average, rating) => {
+      return average += rating
+    }, 0)
+
+    return accumulatedRating / ratings.length
 
     // Annotation:
-    // Write your annotation here as a comment
+    // returning an average involves adding the numbers then dividing the sum
+    //by how many numbers there were. We first needed to return an array of only the
+    //ratings for a given game type. then we needed to reduce that array into a single 
+    //sum of the ratings. then, since reduce returned a single value, we couldnt
+    //divide that sum of ratings by the array assigned to the reducer. So we had to
+    //separate the two functions and use the first mapped array's length to divide the 
+    //reducers return value by to get the figure.
   },
 
   averageScoreByTypeAndPlayers(type, maximumPlayers) {
