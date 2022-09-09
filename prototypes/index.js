@@ -101,7 +101,7 @@ const kittyPrompts = {
 
 // DATASET: clubs from ./datasets/clubs
 const clubPrompts = {
-  membersBelongingToClubs() {
+  membersBelongingToClubs(activity) {
     // Your function should access the clubs data through a parameter (it is being passed as an argument in the test file)
     // Create an object whose keys are the names of people, and whose values are
     // arrays that include the names of the clubs that person is a part of. e.g.
@@ -111,11 +111,31 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    /* CODE GOES HERE */
-
+    return members = activity.reduce((list, club) => {
+      club.members.forEach(member => {
+        if (!list[member]) {
+          list[member] = [];
+          list[member].push(club.club)
+        } else {
+          list[member].push(club.club)
+        }
+      })
+     return list
+   }, {})
+ } 
     // Annotation:
-    // Write your annotation here as a comment
-  }
+    // we're creating an object that is going to be of a more condensed length
+    //than the OG array, so that says reduce. The keys have to be the names of the 
+    //people, and their values need to be the clubs they're in, so we can't flatten
+    //the og array to a list of clubs. Instead we iterate through the OG array (looking
+    //at each object-element), THEN we have to iterate through each members property, which is
+    //an array itself (using a forEach). for each member we use a conditional to ask,
+    //'Does the object i'm creating with reduce() have a property key of this person's
+    //name? (literally: 'if this property key DOESN'T exist') If that is true, create
+    //the property AND add that club we're iterating in as a value (not doing that step
+    //will skip adding that club to the value array). The else statement then asks, since this 
+    //property does exist (now that you passed the first if statement condition), then we're
+    //going to add the club name to the value's array.
 };
 
 
@@ -296,7 +316,14 @@ const cakePrompts = {
     }
 
     // Annotation:
-    // Write your annotation here as a comment
+    // since the toppings data was nested deep inside the data, and since we didnt'
+    //need it to have any connection to the objects where it was nested, we first,
+    //create an array of only the toppings using map and flat. next we use reduce to
+    //create an empty object, then a conditional the ask, if the property of this topping
+    //is not in the array, create that key with the value of 1. If that property does exist,
+    //incremement its value by one. Incrementing the value gave me an issue, because I
+    //was trying [value] = +1, when instead I had to say its the property equal the current value
+    //of that property (whatever it may be) + 1
 };
 
 
