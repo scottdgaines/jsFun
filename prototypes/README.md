@@ -95,7 +95,7 @@ If you'd like to keep track of your progress, feel free to use the checklist bel
 - [x] weather
 - [x] classrooms
 - [x] nationalParks
-- [ ] cakes
+- [x] cakes
 - [x] books
 - [ ] club
 - [x] boardGames
