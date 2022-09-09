@@ -279,11 +279,24 @@ const cakePrompts = {
     //    ...etc
     // }
 
-
+    const toppings = cakes.map(cake => {
+      return cake.toppings
+    }).flat()
+      
+     const list = toppings.reduce((list, topping) => {
+        if (!list[topping]) {
+          list[topping] = 1;
+        } else {
+          list[topping] = list[topping] + 1
+        }
+       return list
+      }, {})
+    
+      return list
+    }
 
     // Annotation:
     // Write your annotation here as a comment
-  }
 };
 
 
