@@ -944,23 +944,56 @@ const turingPrompts = {
     //  { name: 'Robbie', studentCount: 18 }
     // ]
 
-    /* CODE GOES HERE */
+    return instructorList = instructors.map(instructor => {
+      let classSize = 0
+      cohorts.forEach(cohort => {
+        if (instructor.module === cohort.module) {
+          classSize = cohort.studentCount
+        }
+      })
+      return { name: instructor.name, studentCount: classSize }
+    })
+     
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I initially was going to use reduce, but that would end up returning a single object,
+    //with these properites, so i opted for map(). We iterate through our base array from where
+    //we are grabbing our main source of data, and inside each iteration, we also iterate through
+    //the second data source to grab the value of the studentCount that is listed in cohort.
+    //because we used a forEach for that, we can't return anytghing, so we redefined a previous-set
+    //variable outside the forEach that we then used as the value in the object property
   },
 
-  studentsPerInstructor() {
+studentsPerInstructor() {
     // Return an object of how many students per teacher there are in each cohort e.g.
     // {
     // cohort1806: 9,
     // cohort1804: 10.5
     // }
 
-    /* CODE GOES HERE */
+    return studentRatio = cohorts.reduce((acc, cohort) => {
+      let teacherCount = 0;
+
+      instructors.forEach(instructor => {
+        if (cohort.module === instructor.module) {
+          teacherCount++;
+          }
+        })
+
+      acc[`cohort${cohort.cohort}`] = cohort.studentCount / teacherCount
+      
+     return acc
+    }, {})
 
     // Annotation:
-    // Write your annotation here as a comment
+    // SInce we're returning one object, I used reduce. For each iteration through the cohort
+    //array, we needed to see how many instructors there were for that cohort's modul. Since there
+    //could be multiple, we iterated through the instructors array to see if any of theiir modules
+    //matched the module of the cohort we were currently on in our interation through the cohort array
+    // If that was the case, we incremented the teacher count that we could use for our current iteation
+    //through the cohorts array. We then drafted a property to be used in our acc object using the 
+    //cohort property from our current iteration via interpolation, then assigning the value via
+    //math 
   },
 
   modulesPerTeacher() {
@@ -994,10 +1027,28 @@ const turingPrompts = {
     //   recursion: [ 'Pam', 'Leta' ]
     // }
 
-    /* CODE GOES HERE */
+    return curriculum = cohorts.reduce((acc, cohort) => {
+      cohort.curriculum.forEach(topic => {
+        if (!acc[topic]) {
+          acc[topic] = instructors.filter(instructor => {
+           return instructor.teaches.includes(topic)
+            }).map(teacher => {
+              return teacher.name
+            })
+         }
+       })
+     return acc
+    }, {})
 
     // Annotation:
-    // Write your annotation here as a comment
+    // This is nested iteration within iterations. We targeted the cohorts array since
+    //that is from where we were pulling our object key names. we iterated through each cohort
+    //with a reduce and within that iterated through each curriculum topic using a forEach
+    // asking, if this topic doesn't exist in our acc as a property, then add it, AND assign
+    //it the value of another iteration: iterating through the instructors array using a 
+    //filter, specifically filtering the teaches array within that array, saying, if this
+    //teacher's teaches array includes this topic that we're using as an object property key,
+    //then return that teacher. We then use map to return only the teacher's names.
   }
 };
 
@@ -1028,10 +1079,33 @@ const bossPrompts = {
     //   { bossName: 'Scar', sidekickLoyalty: 16 }
     // ]
 
-    /* CODE GOES HERE */
+    const bossArray = Object.values(bosses)
+    
+    const bossNames = bossArray.map(boss => {
+      return boss.name
+    })
+  
+    return bossNames.map(boss => {
+      return {bossName: boss, sidekickLoyalty: sidekicks.reduce((acc, sidekick) => {
+        if (sidekick.boss === boss) {
+          acc += sidekick.loyaltyToBoss
+          }
+        return acc
+        }, 0)
+      }
+    })
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Because we started with an object, we needed to convert it to an array that we could work with
+    // The result we were looking for included an upper case name of the boss. And since that exact string
+    //was a value in the OG objects, we start with Object.values(boss) to get just the boss
+    //objects in an array. We can then pull the boss.name property into another array. 
+
+    //Alternatively, we could have gone:
+    //const bossArray = Object.keys(bosses) <--- pushing the lowercase keys into an array
+    // const capitalized = bossArray.map(boss => {return boss.char(0).toUpperCase() + boss.slice(1)}) <--- looking at each boss in the array, taking the letter that is at index 0 of each string, capitalizing it, then concatenating it with the remainder of the string, starting at index1
+
+    //
   }
 };
 
